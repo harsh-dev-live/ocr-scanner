@@ -1,0 +1,392 @@
+/* Core Structural and iOS System Tokens */
+:root {
+    --ios-bg: #f2f2f7; /* iOS standard off-white light background */
+    --slab-bg: rgba(255, 255, 255, 0.45);
+    --slab-border: rgba(255, 255, 255, 0.4);
+    --text-color: #000000;
+    --text-sub: rgba(0, 0, 0, 0.5);
+    --primary-color: #007aff;
+    --success-color: #34c759;
+    --btn-bg: rgba(0, 0, 0, 0.05);
+    --btn-border: rgba(0, 0, 0, 0.05);
+    --disc-bg: rgba(255, 255, 255, 0.7);
+    --disc-border: rgba(255, 255, 255, 0.5);
+    --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Native iOS Dark Theme Architecture mappings */
+body.dark-mode {
+    --ios-bg: #1c1c1e; /* iOS standard systemic dark grey background */
+    --slab-bg: rgba(28, 28, 30, 0.65);
+    --slab-border: rgba(255, 255, 255, 0.08);
+    --text-color: #ffffff;
+    --text-sub: rgba(255, 255, 255, 0.5);
+    --btn-bg: rgba(255, 255, 255, 0.08);
+    --btn-border: rgba(255, 255, 255, 0.05);
+    --disc-bg: rgba(44, 44, 46, 0.7);
+    --disc-border: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--ios-bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Master Glassmorphic Structure Rules */
+.glass-slab {
+    background: var(--slab-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--slab-border);
+    border-radius: 24px;
+    padding: 36px;
+    width: 90%;
+    max-width: 440px;
+    text-align: center;
+    color: var(--text-color);
+    box-shadow: 0 12px 38px var(--shadow-color), inset 0 1px 0px rgba(255, 255, 255, 0.2);
+    position: relative;
+    transition: box-shadow 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Layer Isolation and State Handling for Cross-Fading */
+.main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.4s ease, filter 0.4s ease;
+    z-index: 1;
+}
+
+.settings-overlay-container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.main-container.id-blurred {
+    opacity: 0;
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+.settings-overlay-container.id-hidden {
+    opacity: 0;
+    transform: scale(0.92);
+    pointer-events: none;
+}
+
+/* iOS Circular Control Disc System */
+.disc-btn {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--disc-bg);
+    border: 1px solid var(--disc-border);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s;
+}
+
+.settings-disc {
+    top: 16px;
+    left: 16px;
+}
+
+.close-disc {
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 59, 48, 0.15);
+    border-color: rgba(255, 59, 48, 0.25);
+    color: #ff3b30;
+}
+
+.disc-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Edge Shine Reflection Animation via Pseudo Layers */
+.disc-btn::before, .btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+    transform: rotate(45deg) translate(-100%, -100%);
+    transition: none;
+    pointer-events: none;
+}
+
+.disc-btn:hover::before, .btn:hover::before {
+    transform: rotate(45deg) translate(100%, 100%);
+    transition: transform 0.6s ease-in-out;
+}
+
+.disc-btn:hover {
+    transform: scale(1.08);
+}
+
+.settings-disc:hover svg {
+    transform: rotate(45deg);
+}
+
+.close-disc:hover {
+    background: rgba(255, 59, 48, 0.25);
+    box-shadow: 0 0 12px rgba(255, 59, 48, 0.3);
+}
+
+/* Core Typography Definitions */
+h2 {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    margin-top: 10px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-top: 4px;
+    margin-bottom: 24px;
+}
+
+/* Drag & Drop File Container */
+.drop-zone {
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+body.dark-mode .drop-zone {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.drop-zone-text {
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.file-info {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-sub);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Button Mechanics styling */
+.btn {
+    position: relative;
+    padding: 10px 24px;
+    border-radius: 9999px;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--text-color);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.action-container {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.action-container .btn { flex: 1; }
+
+.primary-btn {
+    background: var(--primary-color);
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.success-btn {
+    background: rgba(52, 199, 89, 0.1);
+    border-color: rgba(52, 199, 89, 0.2);
+    color: var(--success-color);
+}
+
+.success-btn.highlighted {
+    background: var(--success-color);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(52, 199, 89, 0.4);
+    animation: iosPulse 2.5s infinite ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Processing Status Blocks */
+.status-container { margin-top: 20px; }
+#statusText { font-size: 12px; color: var(--text-sub); }
+.progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 2px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    display: none;
+}
+body.dark-mode .progress-bar-container { background: rgba(255,255,255,0.1); }
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--primary-color);
+    transition: width 0.15s ease;
+}
+
+/* Settings Control Internals */
+.settings-list {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4px;
+}
+
+.settings-label {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* iOS System Spring Switch */
+.ios-switch {
+    position: relative;
+    width: 51px;
+    height: 31px;
+}
+
+.ios-switch input { opacity: 0; width: 0; height: 0; }
+
+.switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(120, 120, 128, 0.2);
+    border-radius: 31px;
+    transition: background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.switch-slider::before {
+    content: "";
+    position: absolute;
+    height: 27px;
+    width: 27px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    /* Classic iOS Spring physics simulation curves */
+    transition: transform 0.35s cubic-bezier(0.42, 0, 0.3, 1.35);
+}
+
+.ios-switch input:checked + .switch-slider {
+    background-color: var(--success-color);
+}
+
+.ios-switch input:checked + .switch-slider::before {
+    transform: translateX(20px);
+}
+
+.settings-divider {
+    border: none;
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+    margin: 16px 0;
+}
+body.dark-mode .settings-divider { background: rgba(255,255,255,0.08); }
+
+/* Classic Apple Professional Profile Section Layout */
+.author-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-sub);
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+}
+
+.author-card {
+    background: rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+body.dark-mode .author-card {
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.04);
+}
+
+.author-meta { font-size: 14px; }
+.author-handle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.author-handle:hover { text-decoration: underline; }
+
+@keyframes iosPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.015); box-shadow: 0 6px 18px rgba(52, 199, 89, 0.5); }
+    100% { transform: scale(1); }
+}
