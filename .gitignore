@@ -1,0 +1,21 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dynamic runtime configuration caches
+.eslintcache
+.stylelintcache
+
+# Backup sessions and dynamic crash dumps
+*.log
+*.tmp
+*.bak
+
+# Local IDE development parameters
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
