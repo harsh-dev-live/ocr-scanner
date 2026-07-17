@@ -1,5 +1,7 @@
 # iOS Glassmorphic Document Scanner
 
+test it live at (https://harsh-dev-live.github.io/ocr-scanner/)
+
 An elegant, client-side document scanner featuring an iOS-inspired "bulged" glassmorphic UI. The platform accepts standard flat images and unselectable PDF documents, running advanced optical character recognition (OCR) natively inside the browser engine while preserving structural spacing, tabs, and columns.
 
 ## 🚀 Features
